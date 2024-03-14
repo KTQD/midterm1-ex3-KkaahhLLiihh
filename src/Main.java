@@ -1,37 +1,37 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
-public class FileReplaceExample {
+public class Main {
     public static void main(String[] args) {
-        String inputFileName = "input.txt";
-        String outputFileName = "output.txt";
+
+        String inputFilePath = "src/input.txt";
+        String outputFilePath = "src/output.txt";
 
         try {
-            // Mở file đầu vào để đọc
-            BufferedReader reader = new BufferedReader(new FileReader(inputFileName));
 
-            // Mở file đầu ra để ghi
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName));
+            FileReader fileReader = new FileReader(inputFilePath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+
+            FileWriter fileWriter = new FileWriter(outputFilePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             String line;
-            // Đọc từng dòng trong file đầu vào
-            while ((line = reader.readLine()) != null) {
-                // Thay thế từ "Nha Trang" bằng "Vũng Tàu" và ghi vào file đầu ra
-                String replacedLine = line.replaceAll("Nha Trang", "Vũng Tàu");
-                writer.write(replacedLine);
-                writer.newLine(); // Thêm dòng mới sau mỗi dòng đã thay thế
+
+
+            while ((line = bufferedReader.readLine()) != null) {
+                // Thay thế từ "Nha Trang" thành "Vũng Tàu" và ghi vào file output.txt
+                line = line.replaceAll("Nha Trang", "Vũng Tàu");
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
             }
 
-            // Đóng file
-            reader.close();
-            writer.close();
 
-            System.out.println("File đã được thay thế và ghi thành công.");
+            bufferedReader.close();
+            bufferedWriter.close();
+
+            System.out.println("");
         } catch (IOException e) {
-            System.err.println("Đã xảy ra lỗi khi đọc/giữ file: " + e.getMessage());
+            System.out.println("" + e.getMessage());
             e.printStackTrace();
         }
     }
